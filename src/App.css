@@ -5,3 +5,24 @@
 .form-group{
   margin-bottom: 10px;
 }
+
+#profileimg{
+  max-width: 80%;
+  border-radius: 5%;
+}
+
+.flexit{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.fontinc{
+  font-size: large;
+}
+
+.editbtn{
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
