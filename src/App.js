@@ -1,7 +1,6 @@
 import { Navbar, NavbarBrand } from "reactstrap";
 import './App.css';
 import Main from "./MainComponent";
-
 function App() {
   return (
     <div>
