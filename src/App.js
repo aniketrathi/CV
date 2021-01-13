@@ -1,4 +1,4 @@
-import { Navbar, NavbarBrand } from "reactstrap";
+import { Navbar, NavbarBrand, Container } from "reactstrap";
 import './App.css';
 import Main from "./MainComponent";
 
@@ -10,7 +10,9 @@ function App() {
               <NavbarBrand href="/"><h1>CV-Maker</h1></NavbarBrand>
           </div>
         </Navbar>
+        <Container>
         <Main />
+        </Container>
     </div>
   );
 }

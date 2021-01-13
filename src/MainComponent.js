@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Input, Form, FormFeedback, FormGroup, Button, Label, Col } from "reactstrap";
+import Preview from './PreviewComponent';
 
 class Main extends Component {
 
@@ -7,6 +8,7 @@ class Main extends Component {
         super(props);
 
         this.state = {
+            dp: '',
             name: '',
             email: '',
             contactno: '',
@@ -38,25 +40,42 @@ class Main extends Component {
                 startyear2: false,
                 cgpa2: false,
                 startyear3: false
-            }
+            },
+            editmode: true
         }
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleBlur = this.handleBlur.bind(this);
+        this.toggleMode = this.toggleMode.bind(this);
     }
+
+    datasofar = {};
+
     handleInputChange(event) {
         const target = event.target;
         const value = target.value;
         const name = target.name;
-    
+        if(name === 'dp'){
+            this.setState({
+                [name]: target.files[0]
+            })
+            console.log(event.target.files[0]);
+            return;
+        }
         this.setState({
           [name]: value
         });
     }
 
+    toggleMode(){
+        this.setState({
+            editmode: !this.state.editmode
+        });
+    }
+
     handleSubmit(event) {
+        this.toggleMode();
         console.log('Current State is: ' + JSON.stringify(this.state));
-        alert('Current State is: ' + JSON.stringify(this.state));
         event.preventDefault();
     }
 
@@ -115,14 +134,17 @@ class Main extends Component {
 
     render(){
         const errors =  this.validate(this.state.name, this.state.email, this.state.contactno, this.state.startyear, this.state.cgpa, this.state.startyear1, this.state.cgpa1, this.state.startyear2, this.state.cgpa2, this.state.startyear3);
+        if(this.state.editmode)
         return(
-            <div className="container row-content">
+            <div className="row-content">
                 <Form onSubmit={this.handleSubmit}>
                     <FormGroup row>
                         <Label htmlFor="dp" md={2}>Profile Picture</Label>
                         <Col md={10}>
-                            <Input type="file" name="dp" id="dp" accept="image/png, image/jpeg" />
+                            <Input type="file" name="dp" id="dp" onChange={this.handleInputChange} accept="image/png, image/jpeg" required/>
                         </Col>
+                    </FormGroup>
+                    <FormGroup row>
                         <Label htmlFor="name" md={2}>Name</Label>
                         <Col md={10}>
                             <Input type="text" name="name" id="name" placeholder="name"
@@ -366,7 +388,10 @@ class Main extends Component {
                 </Form>
             </div>
         );
-
+        else
+        return (
+            <Preview obj ={this.state} fun={this.toggleMode} />
+        );
     }
 }
 export default Main;
